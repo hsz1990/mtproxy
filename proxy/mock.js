@@ -19,31 +19,6 @@ const Mocks={
 const HEADERS=require("./responseType");
 module.exports=async (ctx, next)=>{
 	let mockActions=global.CONFIG.mockActions;
-	if(/^\/_mtproxy_\/addmock/.test(ctx.url) && ctx.method =="POST"){
-		let ctx_query = ctx.request.body;
-		let action=ctx_query.url,
-			method=ctx_query.method||"GET",
-			oridata=ctx_query.data,
-			data=new Function("return "+ctx_query.data),
-			responseType=ctx_query.type||'json';
-		responseType=responseType.toLowerCase();
-		let	obj={
-				key:method+"::"+action,
-				type:responseType,
-				action,
-				method,
-				oridata,
-				data,
-				count:0
-			};
-		let ruleIndex=mockActions.findIndex((item)=>{return item.key===obj.key});
-		ruleIndex==-1 &&  mockActions.push(obj) || (mockActions[ruleIndex]=obj);
-  		ctx.body = JSON.stringify({
-  			status:0,
-  			message:(ruleIndex!=-1?'修改':'新增')+"一条规则:"+obj.key
-  		})
-		return;
-	}
 	let key=ctx.method+"::"+ctx.url.split("?")[0];
 	for (let i = 0; i < mockActions.length; i++) {
   		if(mockActions[i].key===key){

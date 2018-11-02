@@ -211,8 +211,18 @@
 			</table>
 		</div>
 		<div class="tab-content" content-index="4">
-			<div class="title">全局设置</div>
-			<form class="form-vertical" action="/_mtproxy_/setConfig" method="POST">
+			<div class="title">
+				全局设置
+				<a href="javascript:void(0);" class="link-import-config">导入<input type="file"></a>
+			</div>
+			<form id="form-config-import" class="form-vertical hide" action="/_mtproxy_/importConfig" method="POST">
+				<input class="hide" name="data" value=""></input>
+				<div class="form-group">
+					<input class="btn" type="submit" value="提交">
+				</div>
+				<pre></pre>
+			</form>
+			<form id="form-config-modify" class="form-vertical" action="/_mtproxy_/setConfig" method="POST">
 				<div class="form-group">
 					<label>路径:</label>
 					<input required type="text" placeholder="必须以global开头,例如:global.abc['ddd']" name="key">
@@ -225,7 +235,10 @@
 					<input class="btn" type="submit" value="修改">
 				</div>
 			</form>
-			<div class="title">目前global</div>
+			<div class="title">
+				目前global
+				<a href="/_mtproxy_/getConfig?download=true" class='f14'>导出</a>
+			</div>
 			<pre>{{@$data|JSON.stringify null "\t"|String.prototype.replace.call /\\\\/g "\\"}}</pre>
 		</div>
 	</div>

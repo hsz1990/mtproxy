@@ -183,6 +183,28 @@
 		})
 	})
 })();
+(function(){
+	var input=document.querySelector(".link-import-config input");
+	input.addEventListener("change",function(){
+		var file=input.files[0],
+			field=document.querySelector("#form-config-import [name=data]"),
+			pre=document.querySelector("#form-config-import pre");
+		if(file){
+			document.querySelector("#form-config-import").classList.remove("hide");
+			document.querySelector("#form-config-modify").classList.add("hide");
+			var reader = new FileReader();
+			reader.onload = function(ev) {
+				field.value=ev.target.result;
+				pre.innerText=field.value;
+			};
+			reader.readAsText(file);
+		}else{
+			document.querySelector("#form-config-import").classList.add("hide");
+			document.querySelector("#form-config-modify").classList.remove("hide");
+		}
+		
+	})
+})();
 function sendRemote(opt){
 	return new Promise((resolve, reject) => {
 		var httpRequest = new XMLHttpRequest();

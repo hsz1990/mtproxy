@@ -1,7 +1,7 @@
 const template = require('art-template');
 const request = require("request");
 const Path = require('path');
-const Fs = require('fs').promises;
+const Fs = require('fs');
 module.exports=async (params,query,headers)=>{
 	let tpl=params["template"]||params,data=params["data"]||{};
 	if(!tpl){
